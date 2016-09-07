@@ -1,6 +1,6 @@
 # cfgov-setup
 
-This package provides a central home for our build-frontend-assets-from-setup.py logic, which has until now simply been duplicated everywhere. Open source examples:
+This package provides a central home for our logic for building front-end assets as part of the Python build process (for example, when generating a [wheel](https://pypi.python.org/pypi/wheel)), which has until now simply been duplicated everywhere. Open source examples:
 
 https://github.com/cfpb/complaint/blob/v1.2.3/setup.py#L20
 https://github.com/cfpb/retirement/blob/0.5.0/setup.py#L20
