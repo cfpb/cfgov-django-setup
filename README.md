@@ -5,7 +5,7 @@ This package provides a central home for our logic for building front-end assets
 https://github.com/cfpb/complaint/blob/v1.2.3/setup.py#L20
 https://github.com/cfpb/retirement/blob/0.5.0/setup.py#L20
 
-We've also added a crucial check that allows front-end build failures to propogate up to Python. They previously ignored the result of `subprocess.call` and happily continued even if the frontend build fails.
+We've also added a crucial check that allows front-end build failures to propogate up to Python. They previously ignored the result of `subprocess.call` and happily continued even if the frontend build failed.
 
 
 ## Dependencies
