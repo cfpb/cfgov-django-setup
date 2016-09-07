@@ -14,7 +14,7 @@ We've also added a crucial check that allows front-end build failures to propoga
 
 ## Installation
 
-Edit your package's 'setup.py' to require this module at build-time, and set the 'do_frontend_build' keyword in the setup arguments. [This pull request](https://github.com/cfpb/complaint/pull/10) demonstrates the kind of changes to make.
+Edit your package's 'setup.py' to require this module at build-time (`setup_requires=['cfgov-setup']`), and set the 'do_frontend_build' keyword in the setup arguments. [This pull request](https://github.com/cfpb/complaint/pull/10) demonstrates the kind of changes to make.
 
 
 ## Open source licensing info
