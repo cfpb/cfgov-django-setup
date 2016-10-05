@@ -1,66 +1,46 @@
 import os
 
-from distutils.command.build_ext import build_ext as _build_ext
-from setuptools.command.bdist_egg import bdist_egg as _bdist_egg
-from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
+from distutils.command.build_ext import build_ext
+from setuptools.command.bdist_egg import bdist_egg
+from wheel.bdist_wheel import bdist_wheel
 
 from setuptools import Command
 
-from subprocess import call
+from subprocess import check_call
 
 
-class FrontEndBuildFailure(Exception):
-    pass
+def make_build_frontend_command(script_name):
+    class build_frontend(Command):
+        description = 'run %s' % script_name
+        user_options = []
+
+        def run(self):
+            check_call(['sh', script_name])
+
+        def initialize_options(self):
+            """ API requires that we override this, but we have nothing to do"""
+            pass
+
+        def finalize_options(self):
+            """ API requires that we override this, but we have nothing to do"""
+            pass
+
+    return build_frontend
 
 
-class build_frontend(Command):
-    """ A command class to run `setup.sh` """
-    description = 'build front-end JavaScript and CSS'
-    user_options = []
-    possible_scripts = ['frontendbuild.sh', 'setup.sh']
-    available_scripts = [script for script in possible_scripts
-                         if os.path.exists(script)]
+def wrap_command(original_command):
+    class new_command(original_command):
+        def run(self):
+            self.run_command('build_frontend')
+            original_command.run(self)
 
-    def initialize_options(self):
-        pass
+    return new_command
 
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        script = self.available_scripts[0]
-
-        exit_code = call(['sh', script])
-        if exit_code > 0:
-            raise FrontEndBuildFailure
-
-
-class build_ext(_build_ext):
-    """ A build_ext subclass that adds build_frontend """
-    def run(self):
-        self.run_command('build_frontend')
-        _build_ext.run(self)
-
-
-class bdist_egg(_bdist_egg):
-    """ A bdist_egg subclass that runs build_frontend """
-    def run(self):
-        self.run_command('build_frontend')
-        _bdist_egg.run(self)
-
-
-class bdist_wheel(_bdist_wheel):
-    """ A bdist_wheel subclass that runs build_frontend """
-    def run(self):
-        self.run_command('build_frontend')
-        _bdist_wheel.run(self)
-
-
-def do_frontend_build(dist, *args, **kwargs):
+def do_frontend_build(dist, key, script_name):
     commands = {
-       'build_frontend': build_frontend,
-       'build_ext': build_ext,
-       'bdist_egg': bdist_egg,
-       'bdist_wheel': bdist_wheel,
+       'build_frontend': make_build_frontend_command(script_name),
+       'build_ext': wrap_command(build_ext),
+       'bdist_egg': wrap_command(bdist_egg),
+       'bdist_wheel': wrap_command(bdist_wheel)
     }
     dist.cmdclass.update(commands)
