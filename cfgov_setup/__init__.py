@@ -1,12 +1,9 @@
-import os
-
 from distutils.command.build_ext import build_ext
-from setuptools.command.bdist_egg import bdist_egg
-from wheel.bdist_wheel import bdist_wheel
+from subprocess import check_call
 
 from setuptools import Command
-
-from subprocess import check_call
+from setuptools.command.bdist_egg import bdist_egg
+from wheel.bdist_wheel import bdist_wheel
 
 
 def make_build_frontend_command(script_name):
@@ -18,11 +15,11 @@ def make_build_frontend_command(script_name):
             check_call(['sh', script_name])
 
         def initialize_options(self):
-            """ API requires that we override this, but we have nothing to do"""
+            """API requires that we override this, but we have nothing to do"""
             pass
 
         def finalize_options(self):
-            """ API requires that we override this, but we have nothing to do"""
+            """API requires that we override this, but we have nothing to do"""
             pass
 
     return build_frontend
@@ -35,6 +32,7 @@ def wrap_command(original_command):
             original_command.run(self)
 
     return new_command
+
 
 def do_frontend_build(dist, key, script_name):
     commands = {
