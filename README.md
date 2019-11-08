@@ -16,6 +16,13 @@ We've also added a crucial check that allows front-end build failures to propoga
 
 Edit your package's 'setup.py' to require this module at build-time (`setup_requires=['cfgov-setup']`), and set the 'do_frontend_build' keyword in the setup arguments. [This pull request](https://github.com/cfpb/complaint/pull/10) demonstrates the kind of changes to make.
 
+## Testing
+
+To lint and run the unit tests you will need to:
+
+1. Install Tox in a virtualenv or your local Python environment: `pip install tox`
+2. Run tox: `tox`
+
 
 ## Open source licensing info
 1. [TERMS](TERMS.md)
