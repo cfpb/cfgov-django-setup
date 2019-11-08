@@ -12,6 +12,11 @@ def read_file(filename):
         return ''
 
 
+testing_extras = [
+    'coverage>=4.5.4',
+    'mock>=2.0.0',
+]
+
 
 setup(
     name='cfgov-setup',
@@ -28,4 +33,8 @@ setup(
             'frontend_build_script=cfgov_setup:do_frontend_build'
         ]
     },
+    extras_require={
+        'testing': testing_extras,
+    },
+    test_suite='cfgov_setup.tests',
 )
