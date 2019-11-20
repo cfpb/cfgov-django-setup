@@ -36,9 +36,9 @@ def wrap_command(original_command):
 
 def do_frontend_build(dist, key, script_name):
     commands = {
-       'build_frontend': make_build_frontend_command(script_name),
-       'build_ext': wrap_command(build_ext),
-       'bdist_egg': wrap_command(bdist_egg),
-       'bdist_wheel': wrap_command(bdist_wheel)
+        'build_frontend': make_build_frontend_command(script_name),
+        'build_ext': wrap_command(build_ext),
+        'bdist_egg': wrap_command(bdist_egg),
+        'bdist_wheel': wrap_command(bdist_wheel)
     }
     dist.cmdclass.update(commands)
