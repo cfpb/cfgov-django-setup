@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import find_packages, setup
 
 
 def read_file(filename):
@@ -11,14 +11,30 @@ def read_file(filename):
     except IOError:
         return ''
 
-setup(name='cfgov-setup',
-      version='1.1',
-      py_modules='cfgov_setup',
-      url='https://github.com/cfpb/cfgov-django-setup',
-      maintainer= 'CFPB',
-      maintainer_email='tech@cfpb.gov',
-      long_description=read_file('README.md'),
-      entry_points={'distutils.setup_keywords':
-               ['frontend_build_script=cfgov_setup:do_frontend_build']
-           }
-      )
+
+testing_extras = [
+    'coverage>=4.5.4',
+    'mock>=2.0.0',
+]
+
+
+setup(
+    name='cfgov-setup',
+    version='1.2',
+    py_modules=['cfgov_setup', ],
+    url='https://github.com/cfpb/cfgov-django-setup',
+    maintainer='CFPB',
+    maintainer_email='tech@cfpb.gov',
+    long_description=read_file('README.md'),
+    long_description_content_type='text/markdown',
+    packages=find_packages(),
+    entry_points={
+        'distutils.setup_keywords': [
+            'frontend_build_script=cfgov_setup:do_frontend_build'
+        ]
+    },
+    extras_require={
+        'testing': testing_extras,
+    },
+    test_suite='cfgov_setup.tests',
+)
