@@ -20,7 +20,7 @@ testing_extras = [
 
 setup(
     name='cfgov-setup',
-    version='1.2',
+    version='1.3',
     py_modules=['cfgov_setup', ],
     url='https://github.com/cfpb/cfgov-django-setup',
     maintainer='CFPB',
