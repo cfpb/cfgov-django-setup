@@ -23,7 +23,6 @@ To lint and run the unit tests you will need to:
 1. Install Tox in a virtualenv or your local Python environment: `pip install tox`
 2. Run tox: `tox`
 
-
 ## Open source licensing info
 1. [TERMS](TERMS.md)
 2. [LICENSE](LICENSE)

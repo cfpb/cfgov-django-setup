@@ -1,7 +1,7 @@
 import unittest
+from distutils.tests import support
 
 from mock import patch
-from distutils.tests import support
 
 
 class CFGovDjangoSetup(support.TempdirManager, unittest.TestCase):
